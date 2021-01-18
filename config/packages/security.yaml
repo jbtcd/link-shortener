@@ -20,7 +20,7 @@ security:
             provider: app_user_provider
             logout:
                 path: logout
-                target: index
+            custom_authenticator: App\Security\LoginFormAuthenticator
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
