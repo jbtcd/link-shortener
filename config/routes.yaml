@@ -2,6 +2,9 @@ index:
     path: /
     controller: App\Controller\DefaultController::indexAction
 
+logout:
+    path: logout
+
 redirect:
     path: /{shortUrl}
     controller: App\Controller\RedirectController::redirectAction
