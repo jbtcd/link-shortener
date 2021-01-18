@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\ShortUrl;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -9,18 +10,22 @@ class RedirectController extends AbstractController
 {
     public function redirectAction(string $shortUrl): RedirectResponse
     {
-        // TODO: Get redirects from database
-        $redirects = [
-            'github' => 'https://github.com/jbtcd',
-        ];
+        /** @var ?ShortUrl $shortUrl */
+        $shortUrl = $this->getDoctrine()->getRepository(ShortUrl::class)->findOneBy(['short_url' => $shortUrl]);
 
-        if (!isset($redirects[$shortUrl])) {
-            throw $this->createNotFoundException('Redirect not found');
+        if ($shortUrl === null) {
+            throw $this->createNotFoundException();
         }
 
-        // TODO: Increase redirect call count in database
+        $calls = (int)$shortUrl->getCalls();
+        $calls++;
 
-        return new RedirectResponse($redirects[$shortUrl]);
+        $shortUrl->setCalls($calls);
+
+        $this->getDoctrine()->getManager()->persist($shortUrl);
+        $this->getDoctrine()->getManager()->flush();
+
+        return new RedirectResponse($shortUrl->getLongUrl());
     }
 
 }
