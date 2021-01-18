@@ -1,3 +1,7 @@
 index:
     path: /
     controller: App\Controller\DefaultController::indexAction
+
+redirect:
+    path: /{shortUrl}
+    controller: App\Controller\RedirectController::redirectAction
