@@ -19,32 +19,13 @@ class ShortUrlRepository extends ServiceEntityRepository
         parent::__construct($registry, ShortUrl::class);
     }
 
-    // /**
-    //  * @return ShortUrl[] Returns an array of ShortUrl objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
     public function findOneBySomeField($value): ?ShortUrl
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
+            ->andWhere('s.short_url = :val')
+            ->orWhere('s.long_url = :val')
             ->setParameter('val', $value)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
 }
